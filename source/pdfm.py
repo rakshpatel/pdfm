@@ -1,7 +1,10 @@
+"""
+Simple utility to work with PDF
+"""
 import argparse
+import sys
 
-
-def getArguments():
+def get_arguments():
     """
     Description: Function to receive arguments for proram.
     Arguments:
@@ -12,8 +15,8 @@ def getArguments():
     parser = argparse.ArgumentParser(description='Process PDF files.')
     parser.add_argument(
         "-a",
-        "--action",             
-        type=str, 
+        "--action",
+        type=str,
         help="action=merge/split.",
         required=True
         )
@@ -34,7 +37,7 @@ def getArguments():
     args = parser.parse_args()
     return args
 
-def verifyArguments(args):
+def verify_arguments(args):
     """
     Description: Function to verify arguments based on options.
     Arguments:
@@ -46,17 +49,24 @@ def verifyArguments(args):
     if args.action == "split" and not args.parts:
         print("Value for parts is mandatory when action is split")
         usage()
-        exit(1)
-    
+        sys.exit(1)
+
     if args.action == "merge" and not args.files:
         print("List of files is mandatory when action is merge")
         usage()
-        exit(1)
-    
+        sys.exit(1)
+
 def usage():
+    """
+    Description: Prints usage information
+    Arguments:
+        No Args.
+    Returns:
+        None.
+    """
     print("Utility to either merge the given files, or split files into multiple PDFs")
-    print("pdfm.py -a split -p parts or pdfm.py --action split --parts parts")  
-    print("pdfm.py -a merge -f file1,file2 or pdfm.py --action split --files file1,file2") 
+    print("pdfm.py -a split -p parts or pdfm.py --action split --parts parts")
+    print("pdfm.py -a merge -f file1,file2 or pdfm.py --action split --files file1,file2")
 
 
 def main():
@@ -67,10 +77,8 @@ def main():
     Returns:
         None.
     """
-    args = getArguments()
-    verifyArguments(args)
+    args = get_arguments()
+    verify_arguments(args)
 
 if __name__ == '__main__':
     main()
-    
-        
