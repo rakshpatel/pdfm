@@ -42,6 +42,7 @@ def verifyArguments(args):
     Returns:
         None.
     """
+
     if args.action == "split" and not args.parts:
         print("Value for parts is mandatory when action is split")
         usage()
@@ -56,6 +57,7 @@ def usage():
     print("Utility to either merge the given files, or split files into multiple PDFs")
     print("pdfm.py -a split -p parts or pdfm.py --action split --parts parts")  
     print("pdfm.py -a merge -f file1,file2 or pdfm.py --action split --files file1,file2") 
+
 
 def main():
     """
