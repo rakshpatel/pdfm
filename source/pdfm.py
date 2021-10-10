@@ -73,6 +73,20 @@ def usage():
     print("pdfm.py -a merge -f file1,file2 or pdfm.py --action split --files file1,file2")
     print("*" * 80)
 
+def get_pages_per_part(num_pages, parts):
+    """
+    Description: Returns number of pages per part
+    Arguments:
+        num_pages: Pages in original PDF
+        parts: No of parts. File should be split into parts.
+    Returns:
+        page_per_pdf: Number of pages in one PDF.
+    """
+    if num_pages % parts == 0:
+        return num_pages / parts
+    else:
+        return round(num_pages / parts)
+
 def pdf_split(file, parts):
     """
     Description: Split the given pdf file into multiple files
@@ -90,10 +104,10 @@ def pdf_split(file, parts):
         reader = PyPDF2.PdfFileReader(file_object)
         writer = PyPDF2.PdfFileWriter()
         num_pages = reader.numPages
-        page_per_pdf = round(num_pages/parts)
+        page_per_pdf = get_pages_per_part(num_pages, parts)
         file_part = 0
         written = False
-        print("Each part will contain, approximately {} pages.\nLast file may contain more/less based on total pages in original file.".format(page_per_pdf))
+        #print("Each part will contain, approximately {} pages.\nLast file may contain more/less based on total pages in original file.".format(page_per_pdf))
         if parts > num_pages:
             print("File can't be split into {} parts, as it has only {} pages. Parts should be <= {}".format(parts, num_pages, num_pages))
             sys.exit(1)
